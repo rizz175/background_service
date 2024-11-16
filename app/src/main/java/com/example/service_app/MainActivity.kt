@@ -15,7 +15,15 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         bottomNavigationView = findViewById(R.id.bottomNav)
-        bottomNavigationView.selectedItemId = R.id.nav_home
+        bottomNavigationView.selectedItemId = R.id.nav_profile
+        // Check if fragments are being loaded correctly
+        if (savedInstanceState == null) {
+            // Load the ProfileFragment by default when the app starts
+            val profileFragment = ProfileFragment()
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.container, profileFragment)
+                .commit()
+        }
 
         // Set the listener for tab selections
         bottomNavigationView.setOnItemSelectedListener { item ->
