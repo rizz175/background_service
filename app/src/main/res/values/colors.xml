@@ -8,6 +8,7 @@
     <color name="black">#FF000000</color>
     <color name="gray">#8E8A8A</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="bottom_nav_icon_color">#FFFFFF</color>
+    <color name="bottom_nav_inactive_color">#8E8A8A</color>
+    <color name="bottom_nav_active_color">#FFFFFF</color>
     <color name="nav_dark_gray">#2C2C2C</color>
 </resources>

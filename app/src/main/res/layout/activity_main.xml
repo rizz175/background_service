@@ -21,10 +21,10 @@
         app:itemHorizontalTranslationEnabled="false"
         android:layout_gravity="bottom"
 
-        app:itemIconTint="@color/bottom_nav_icon_color"
+        app:itemIconTint="@color/bottom_nav_active_color"
         app:itemTextAppearanceActive="@style/BottomNavTextActive"
         app:itemTextAppearanceInactive="@style/BottomNavTextInactive"
-        app:itemTextColor="@color/bottom_nav_icon_color"
+        app:itemTextColor="@color/bottom_nav_active_color"
         app:labelVisibilityMode="labeled"
         app:menu="@menu/bottom_navigation_menu" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

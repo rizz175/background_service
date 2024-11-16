@@ -1,11 +1,11 @@
 <resources>
     <string name="app_name">App</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="home_fragment">Home fragment</string>
-    <string name="profile_fragment">Profile fragment</string>
+    <string name="home_fragment">Home Tab</string>
+    <string name="profile_fragment">Profile Tab</string>
 
-    <string name="search_fragment">Search fragment</string>
+    <string name="search_fragment">Search Tab</string>
 
-    <string name="notification_fragment">Notification fragment</string>
+    <string name="notification_fragment">Notification Tab</string>
 
 </resources>
