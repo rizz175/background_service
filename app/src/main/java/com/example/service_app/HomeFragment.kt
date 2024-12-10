@@ -1,10 +1,13 @@
 package com.example.service_app
 
+
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -33,8 +36,23 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false)
+
+        val view = inflater.inflate(R.layout.fragment_home, container, false)
+
+        val carouselRecyclerView = view.findViewById<RecyclerView>(R.id.carouselRecyclerView)
+        carouselRecyclerView.layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+
+        val items = listOf(
+            CarouselItem(R.drawable.ic_headphone, 1),
+            CarouselItem(R.drawable.ic_mail, 2),
+            CarouselItem(R.drawable.ic_headphone, 3),
+            )
+
+        val adapter = CarouselAdapter(items)
+        carouselRecyclerView.adapter = adapter
+
+        return view
     }
 
     companion object {

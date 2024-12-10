@@ -7,5 +7,7 @@
     <string name="search_fragment">Search Tab</string>
 
     <string name="notification_fragment">Notification Tab</string>
+    <string name="iconName">icon</string>
+    <string name="defaultValue">0</string>
 
 </resources>
