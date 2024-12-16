@@ -6,6 +6,7 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import org.json.JSONObject
 
 class MainActivity : AppCompatActivity() {
     private lateinit var bottomNavigationView: BottomNavigationView
@@ -14,6 +15,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
         bottomNavigationView = findViewById(R.id.bottomNav)
         bottomNavigationView.selectedItemId = R.id.nav_profile
         // Check if fragments are being loaded correctly
@@ -57,5 +59,59 @@ class MainActivity : AppCompatActivity() {
         Log.d("MainActivity", "Service Stopped from MainActivity")
     }
 
+    fun parseACL() {
+        val result = mutableMapOf<String, Map<String, Int>>()
+
+        val jsonString = """
+        {
+            "acl": {
+                "player_level": "READ",
+                "classification": {
+                    "level": "FOOTBALL FOR FUN",
+                    "strikes": [],
+                    "freethrows": []
+                },
+                "write": {
+                    "users": [
+                        "fred"
+                    ],
+                    "groups": []
+                },
+                "read": {
+                    "users": [],
+                    "groups": [
+                        "/AllPlayers"
+                    ]
+                },
+                "none": {
+                    "users": [],
+                    "groups": []
+                }
+            }
+        }
+    """
+
+
+        val jsonObject = JSONObject(jsonString)
+        val acl = jsonObject.getJSONObject("acl")
+
+
+        val keys = listOf("write", "read", "none")
+
+        for (key in keys) {
+            val keyObject = acl.getJSONObject(key)
+            val users = keyObject.getJSONArray("users")
+            val groups = keyObject.getJSONArray("groups")
+
+            result[key] = mapOf(
+                "users" to users.length(),
+                "groups" to groups.length()
+            )
+        }
+
+        result.forEach { (key, counts) ->
+            println("$key: Users = ${counts["users"]}, Groups = ${counts["groups"]}")
+        }
+    }
 
 }
