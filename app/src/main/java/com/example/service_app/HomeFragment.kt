@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
@@ -49,9 +50,13 @@ class HomeFragment : Fragment() {
             CarouselItem(R.drawable.ic_headphone, 3),
             )
 
-        val adapter = CarouselAdapter(items)
-        carouselRecyclerView.adapter = adapter
 
+        val adapter = CarouselAdapter(items, object : CarouselAdapter.OnItemClickListener {
+            override fun onItemClick(item: CarouselItem) {
+                Toast.makeText(requireContext(), "Item clicked with ID", Toast.LENGTH_SHORT).show()
+            }
+        })
+        carouselRecyclerView.adapter = adapter
         return view
     }
 

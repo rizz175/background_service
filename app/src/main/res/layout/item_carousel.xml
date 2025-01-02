@@ -5,13 +5,20 @@
     android:layout_height="80dp"
     android:layout_margin="8dp"
     card_view:cardCornerRadius="10dp"
-    card_view:cardElevation="4dp"
-    android:foreground="?attr/selectableItemBackground">
+    android:background="@android:color/transparent"
+    card_view:cardElevation="0dp"
+    card_view:cardBackgroundColor="@android:color/transparent">
+
+
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"   android:layout_margin="8dp"
-        android:background="@drawable/white_border_rounded">
+        android:layout_height="match_parent"
+        android:layout_margin="0dp"
+        android:background="@drawable/card_border"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="15dp"
+        >
 
 
         <ImageView
@@ -20,7 +27,10 @@
             android:layout_height="25dp"
             android:contentDescription="@string/iconName"
             android:src="@drawable/ic_mail"
-            android:layout_gravity="start|top" />
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_gravity="start|top"
+            card_view:tint="@color/gray" />
 
 
         <TextView
@@ -28,8 +38,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/defaultValue"
+            android:layout_marginStart="15dp"
+            android:layout_marginBottom="10dp"
             android:textSize="18sp"
-            android:textColor="@android:color/black"
+            android:textColor="@color/white"
             android:layout_gravity="start|bottom" />
     </FrameLayout>
 </androidx.cardview.widget.CardView>

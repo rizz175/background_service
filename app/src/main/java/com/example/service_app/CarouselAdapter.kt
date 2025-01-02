@@ -7,7 +7,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class CarouselAdapter(private val items: List<CarouselItem>) : RecyclerView.Adapter<CarouselAdapter.CarouselViewHolder>() {
+class CarouselAdapter(private val items: List<CarouselItem>, private val onItemClickListener: OnItemClickListener) : RecyclerView.Adapter<CarouselAdapter.CarouselViewHolder>() {
 
     class CarouselViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val iconImageView: ImageView = itemView.findViewById(R.id.iconImageView)
@@ -23,7 +23,14 @@ class CarouselAdapter(private val items: List<CarouselItem>) : RecyclerView.Adap
         val item = items[position]
         holder.iconImageView.setImageResource(item.iconResId)
         holder.numberTextView.text = item.number.toString()
+
+        holder.itemView.setOnClickListener {
+            onItemClickListener.onItemClick(item)
+        }
     }
 
     override fun getItemCount(): Int = items.size
+    interface OnItemClickListener {
+        fun onItemClick(item: CarouselItem)
+    }
 }

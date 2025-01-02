@@ -9,5 +9,8 @@
     <string name="notification_fragment">Notification Tab</string>
     <string name="iconName">icon</string>
     <string name="defaultValue">0</string>
+    <string name="edit_button">edit button</string>
+    <string name="search">Search</string>
+    <string name="search_field">Search field</string>
 
 </resources>
