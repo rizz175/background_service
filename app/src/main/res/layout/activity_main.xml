@@ -7,13 +7,15 @@
     tools:context=".MainActivity">
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab"
+        android:id="@+id/mainButton"
         android:layout_width="wrap_content"
+        android:clickable="true"
         android:layout_height="wrap_content"
         android:layout_gravity="end|bottom"
         android:layout_marginBottom="70dp"
         android:layout_marginEnd="20dp"
         android:contentDescription="@string/edit_button"
+        android:focusable="true"
         android:src="@drawable/ic_edit"
         app:backgroundTint="@color/secondaryColor"
         app:tint="@color/gray" />
