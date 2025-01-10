@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.service_app.databinding.FragmentHomeBinding
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -24,7 +25,8 @@ class HomeFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
-
+    private var _binding: FragmentHomeBinding? = null
+    private val binding get() = _binding!!
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -38,28 +40,39 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        val view = inflater.inflate(R.layout.fragment_home, container, false)
+        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        return binding.root
 
-        val carouselRecyclerView = view.findViewById<RecyclerView>(R.id.carouselRecyclerView)
-        carouselRecyclerView.layoutManager =
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        // Setup RecyclerView
+        binding.carouselRecyclerView.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
 
+        // Dummy data
         val items = listOf(
             CarouselItem(R.drawable.ic_headphone, 1),
             CarouselItem(R.drawable.ic_mail, 2),
-            CarouselItem(R.drawable.ic_headphone, 3),
-            )
+            CarouselItem(R.drawable.ic_headphone, 3)
+        )
 
-
+        // Setup Adapter
         val adapter = CarouselAdapter(items, object : CarouselAdapter.OnItemClickListener {
             override fun onItemClick(item: CarouselItem) {
-                Toast.makeText(requireContext(), "Item clicked with ID", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Item clicked: ${item.number}", Toast.LENGTH_SHORT)
+                    .show()
             }
         })
-        carouselRecyclerView.adapter = adapter
-        return view
+        binding.carouselRecyclerView.adapter = adapter
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
     companion object {
         /**
          * Use this factory method to create a new instance of
