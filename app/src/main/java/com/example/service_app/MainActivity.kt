@@ -5,6 +5,7 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
@@ -14,6 +15,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.service_app.databinding.ActivityMainBinding
+import com.example.service_app.databinding.PopupLayoutBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import org.json.JSONObject
 
@@ -73,43 +75,32 @@ class MainActivity : AppCompatActivity() {
         stopService(serviceIntent)
         Log.d("MainActivity", "Service Stopped from MainActivity")
     }
+
     private fun showPopup(anchorView: View) {
-        val popupView = layoutInflater.inflate(R.layout.popup_layout, null)
+        val popupBinding = PopupLayoutBinding.inflate(LayoutInflater.from(this))
+        popupBinding.root.measure(
+            View.MeasureSpec.UNSPECIFIED,
+            View.MeasureSpec.UNSPECIFIED
+        )
 
-        popupView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED)
-        val width = popupView.measuredWidth
-        val height = popupView.measuredHeight
-
-        Log.d("MainActivity", "Popup dimensions - Width: $width, Height: $height")
-
+        val popupWidth = popupBinding.root.measuredWidth
+        val popupHeight = popupBinding.root.measuredHeight
         val popupWindow = PopupWindow(
-            popupView,
-            width,
-            height,
+            popupBinding.root,
+            popupWidth.takeIf { it > 0 } ?: ViewGroup.LayoutParams.WRAP_CONTENT,
+            popupHeight.takeIf { it > 0 } ?: ViewGroup.LayoutParams.WRAP_CONTENT,
             true
         )
 
-        popupView.findViewById<ImageView>(R.id.item1).setOnClickListener {
+        popupWindow.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        popupWindow.isOutsideTouchable = true
+
+        popupBinding.item1.setOnClickListener {
             Toast.makeText(this, "Item 1 clicked", Toast.LENGTH_SHORT).show()
-        }
-        popupView.findViewById<ImageView>(R.id.item2).setOnClickListener {
-            Toast.makeText(this, "Item 2 clicked", Toast.LENGTH_SHORT).show()
-        }
-        popupView.findViewById<ImageView>(R.id.item3).setOnClickListener {
-            Toast.makeText(this, "Item 3 clicked", Toast.LENGTH_SHORT).show()
-        }
-        popupView.findViewById<ImageView>(R.id.item4).setOnClickListener {
-            Toast.makeText(this, "Item 4 clicked", Toast.LENGTH_SHORT).show()
-        }
-        popupView.findViewById<ImageView>(R.id.item5).setOnClickListener {
-            Toast.makeText(this, "Item 5 clicked", Toast.LENGTH_SHORT).show()
-        }
-        popupView.findViewById<ImageView>(R.id.item6).setOnClickListener {
-            Toast.makeText(this, "Item 6 clicked", Toast.LENGTH_SHORT).show()
+            popupWindow.dismiss() // Close popup on click
         }
 
         popupWindow.showAsDropDown(anchorView)
-
     }
     fun parseACL() {
         val result = mutableMapOf<String, Map<String, Int>>()
